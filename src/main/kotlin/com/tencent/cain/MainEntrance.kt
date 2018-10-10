@@ -75,6 +75,8 @@ fun main(args: Array<String>) {
     person.age = 28
     println("person name : ${person.name} ,age : ${person.age}")
 
+    val rectangle = Rectangle(23,23)
+    println("this is square：${rectangle.isSquare}")
 }
 
 fun fn(n: Int): Int {
