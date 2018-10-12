@@ -1,6 +1,7 @@
 package com.tencent.cain
 
 import com.tencent.cain.person.Person
+import java.lang.Exception
 import java.util.*
 
 fun main(args: Array<String>) {
@@ -75,8 +76,13 @@ fun main(args: Array<String>) {
     person.age = 28
     println("person name : ${person.name} ,age : ${person.age}")
 
-    val rectangle = Rectangle(23,23)
+    val rectangle = Rectangle(23, 23)
     println("this is square：${rectangle.isSquare}")
+
+    println(getMnemonic(Color.BLUE))
+    val color = Color.BLUE
+    println(color.rgb())
+    println(mix(Color.RED, Color.GREEN))
 }
 
 fun fn(n: Int): Int {
@@ -95,4 +101,16 @@ fun pow(base: Int, exponent: Int): Int {
         result *= base
     }
     return result
+}
+
+fun getMnemonic(color: Color) = when (color) {
+    Color.RED -> "Richard"
+    Color.BLUE -> "Bluce"
+    Color.GREEN -> "Geen"
+}
+
+fun mix(color1: Color, color2: Color) = when (setOf<Color>(color1, color2)) {
+    setOf(Color.RED, Color.BLUE) -> "紫色"
+    setOf(Color.RED, Color.GREEN) -> "朱红"
+    else -> throw Exception("Dirty color")
 }
