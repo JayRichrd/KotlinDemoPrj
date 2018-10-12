@@ -2,6 +2,7 @@ package com.tencent.cain
 
 import com.tencent.cain.person.Person
 import java.lang.Exception
+import java.lang.IllegalArgumentException
 import java.util.*
 
 fun main(args: Array<String>) {
@@ -83,6 +84,10 @@ fun main(args: Array<String>) {
     val color = Color.BLUE
     println(color.rgb())
     println(mix(Color.RED, Color.GREEN))
+
+    val num = Num(1)
+    val sum = Sum(Num(2), Num(4))
+    println("result=${eval3(num) + eval3(sum)}")
 }
 
 fun fn(n: Int): Int {
@@ -114,3 +119,35 @@ fun mix(color1: Color, color2: Color) = when (setOf<Color>(color1, color2)) {
     setOf(Color.RED, Color.GREEN) -> "朱红"
     else -> throw Exception("Dirty color")
 }
+
+fun eval(e: Expr): Int =
+        if (e is Num) {
+            e.value
+        } else if (e is Sum) {
+            eval(e.left) + eval(e.right)
+        } else {
+            throw IllegalArgumentException("Unknown expression")
+        }
+
+fun eval2(e: Expr): Int =
+        when (e) {
+            is Num -> e.value
+            is Sum -> eval2(e.left) + eval2(e.right)
+            else -> throw IllegalArgumentException("Unknown expression")
+        }
+
+fun eval3(e: Expr): Int =
+        when (e) {
+            is Num -> {
+                println("num: ${e.value}")
+                e.value
+            }
+            is Sum -> {
+                val left = eval3(e.left)
+                val right = eval3(e.right)
+                println("sum: $left + $right")
+                left + right
+            }
+            else -> throw IllegalArgumentException("Unknown expression")
+        }
+

@@ -11,3 +11,7 @@ enum class Color(val r: Int, val g: Int, val b: Int) {
 
     fun rgb() = (r * 256 + g) * 256 + b
 }
+
+interface Expr
+class Num(val value:Int):Expr
+class Sum(val left:Expr,val right:Expr):Expr
