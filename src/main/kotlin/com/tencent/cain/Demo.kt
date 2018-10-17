@@ -13,5 +13,18 @@ enum class Color(val r: Int, val g: Int, val b: Int) {
 }
 
 interface Expr
-class Num(val value:Int):Expr
-class Sum(val left:Expr,val right:Expr):Expr
+class Num(val value: Int) : Expr
+class Sum(val left: Expr, val right: Expr) : Expr
+
+class ArgsUtil {
+    @JvmOverloads
+    fun <T> joinToString(collection: Collection<T>, separator: String = ", ", prefix: String = "", postfix: String = ""): String {
+        val result = StringBuilder(prefix)
+        for ((index, element) in collection.withIndex()) {
+            if (index > 0) result.append(separator)
+            result.append(element)
+        }
+        result.append(postfix)
+        return result.toString()
+    }
+}

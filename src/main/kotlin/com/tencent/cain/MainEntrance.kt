@@ -123,6 +123,12 @@ fun main(args: Array<String>) {
     println()
     println("Kotlin" in setOf("Kotlin", "Scala"))
 
+    println()
+    val listStr = listOf(1, 2, 3)
+    println(joinToString(listStr, separator = "; ", prefix = "(", postfix = ")"))
+    println(joinToString(listStr))
+    println(joinToString(listStr, prefix = "(", postfix = ")"))
+
 
 }
 
@@ -192,4 +198,14 @@ fun fizzBuzz(i: Int) = when {
 }
 
 fun isLetter(c: Char) = c in 'a'..'z' || c in 'A'..'Z'
+
+fun <T> joinToString(collection: Collection<T>, separator: String = ", ", prefix: String = "", postfix: String = ""): String {
+    val result = StringBuilder(prefix)
+    for ((index, element) in collection.withIndex()) {
+        if (index > 0) result.append(separator)
+        result.append(element)
+    }
+    result.append(postfix)
+    return result.toString()
+}
 
