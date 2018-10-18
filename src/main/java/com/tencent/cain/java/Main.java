@@ -2,6 +2,7 @@ package com.tencent.cain.java;
 
 import com.tencent.cain.ArgsUtil;
 import com.tencent.cain.Rectangle;
+import com.tencent.cain.Utils;
 import com.tencent.cain.person.Person;
 
 import java.util.ArrayList;
@@ -21,5 +22,6 @@ public class Main {
         list.add(3);
         ArgsUtil argsUtil = new ArgsUtil();
         System.out.println("输出结果：" + argsUtil.joinToString(list,"#"));
+        System.out.println("输出结果：" + Utils.joinToString(list));
     }
 }
