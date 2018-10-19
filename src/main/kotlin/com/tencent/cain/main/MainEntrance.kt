@@ -2,8 +2,10 @@ package com.tencent.cain.main
 
 import com.tencent.cain.*
 import com.tencent.cain.person.Person
+import com.tencent.cain.util.join2Str
 import com.tencent.cain.util.joinToString
 import com.tencent.cain.util.lastChar
+import com.tencent.cain.util.showOff
 import java.lang.Exception
 import java.lang.IllegalArgumentException
 import java.util.*
@@ -135,7 +137,17 @@ fun main(args: Array<String>) {
     println()
     println("Kotlin 的最后一个字符：${"Kotlin".lastChar("Kotlin".length)}")
 
+    println()
+    val listdemo = listOf(1, 2, 3)
+    println("扩展方法：${listdemo.join2Str(prefix = "[", postfix = "]")}")
 
+    println()
+    val parent:Parent = Child()
+    parent.click()
+
+    println()
+    val parent1: Parent = Child()
+    parent1.showOff()
 }
 
 fun fn(n: Int): Int {

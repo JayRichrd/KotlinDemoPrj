@@ -25,5 +25,6 @@ public class Main {
         System.out.println("输出结果：" + Utils.joinToString(list));
         // 使用Kotlin定义的扩展函数
         System.out.println("Kotlin 的最后一个字符: " + Utils.lastChar("Kotlin", "Kotlin".length()));
+        System.out.println("扩展方法：" + Utils.join2Str(list, ";", "[", "]"));
     }
 }
