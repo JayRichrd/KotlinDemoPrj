@@ -142,12 +142,18 @@ fun main(args: Array<String>) {
     println("扩展方法：${listdemo.join2Str(prefix = "[", postfix = "]")}")
 
     println()
-    val parent:Parent = Child()
+    val parent: Parent = Child()
     parent.click()
 
     println()
     val parent1: Parent = Child()
     parent1.showOff()
+
+    println()
+    val sb = StringBuilder("Kotlin")
+    println("扩展属性，Kotlin的最后一个字符：${sb.lastChar}")
+    sb.lastChar = '!'
+    println("扩展属性，修改Kotlin后的最后一个字符：${sb.lastChar}")
 }
 
 fun fn(n: Int): Int {

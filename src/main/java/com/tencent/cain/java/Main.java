@@ -26,5 +26,10 @@ public class Main {
         // 使用Kotlin定义的扩展函数
         System.out.println("Kotlin 的最后一个字符: " + Utils.lastChar("Kotlin", "Kotlin".length()));
         System.out.println("扩展方法：" + Utils.join2Str(list, ";", "[", "]"));
+        // 扩展属性
+        StringBuilder sb = new StringBuilder("Kotlin");
+        System.out.println("扩展属性，" + Utils.getLastChar(sb));
+        Utils.setLastChar(sb, '?');
+        System.out.println("扩展属性，" + Utils.getLastChar(sb));
     }
 }

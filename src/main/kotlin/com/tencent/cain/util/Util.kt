@@ -32,6 +32,13 @@ fun Parent.showOff() = println("I'm Parent!")
 
 fun Child.showOff() = println("I'm child!")
 
+// 扩展属性
+var StringBuilder.lastChar: Char
+    get() = this.get(this.length - 1)
+    set(value: Char) {
+        this.setCharAt(this.length - 1, value)
+    }
+
 /**
  * String类的扩展函数
  */
