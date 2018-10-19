@@ -1,5 +1,6 @@
 @file:JvmName("Utils")
-package com.tencent.cain
+
+package com.tencent.cain.util
 
 @JvmOverloads
 fun <T> joinToString(collection: Collection<T>, separator: String = ", ", prefix: String = "", postfix: String = ""): String {
@@ -10,4 +11,12 @@ fun <T> joinToString(collection: Collection<T>, separator: String = ", ", prefix
     }
     result.append(postfix)
     return result.toString()
+}
+
+/**
+ * String类的扩展函数
+ */
+fun String.lastChar(size: Int): Char {
+    println("size of str: ${size}")
+    return this.get(this.length - 1)
 }

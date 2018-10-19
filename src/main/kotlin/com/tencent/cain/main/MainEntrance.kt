@@ -1,6 +1,9 @@
-package com.tencent.cain
+package com.tencent.cain.main
 
+import com.tencent.cain.*
 import com.tencent.cain.person.Person
+import com.tencent.cain.util.joinToString
+import com.tencent.cain.util.lastChar
 import java.lang.Exception
 import java.lang.IllegalArgumentException
 import java.util.*
@@ -128,6 +131,9 @@ fun main(args: Array<String>) {
     println(joinToString(listStr, separator = "; ", prefix = "(", postfix = ")"))
     println(joinToString(listStr))
     println(joinToString(listStr, prefix = "(", postfix = ")"))
+
+    println()
+    println("Kotlin 的最后一个字符：${"Kotlin".lastChar("Kotlin".length)}")
 
 
 }
