@@ -154,6 +154,13 @@ fun main(args: Array<String>) {
     println("扩展属性，Kotlin的最后一个字符：${sb.lastChar}")
     sb.lastChar = '!'
     println("扩展属性，修改Kotlin后的最后一个字符：${sb.lastChar}")
+
+    println()
+    val arrayList = arrayOf(1, 2, 3)
+    val listceshi = listOf(4, *arrayList)
+    println("可变参数测试：$listceshi")
+
+
 }
 
 fun fn(n: Int): Int {
