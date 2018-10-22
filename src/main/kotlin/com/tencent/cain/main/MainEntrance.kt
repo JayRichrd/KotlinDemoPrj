@@ -160,6 +160,10 @@ fun main(args: Array<String>) {
     val listceshi = listOf(4, *arrayList)
     println("可变参数测试：$listceshi")
 
+    println()
+    println("12.345-6.A".split("\\.|-".toRegex()))
+    println("12.345-6.A".split(".", "-"))
+
 
 }
 
