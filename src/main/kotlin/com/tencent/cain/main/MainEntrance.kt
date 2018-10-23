@@ -167,7 +167,8 @@ fun main(args: Array<String>) {
     println()
     parsePath("/Users/cainjiang/Downloads/log_analyzer.py")
 
-
+    println()
+    saveUser(User(1,"jay","shenzhen"))
 }
 
 fun parsePath(path: String) {
@@ -246,13 +247,15 @@ fun fizzBuzz(i: Int) = when {
 
 fun isLetter(c: Char) = c in 'a'..'z' || c in 'A'..'Z'
 
-//fun <T> joinToString(collection: Collection<T>, separator: String = ", ", prefix: String = "", postfix: String = ""): String {
-//    val result = StringBuilder(prefix)
-//    for ((index, element) in collection.withIndex()) {
-//        if (index > 0) result.append(separator)
-//        result.append(element)
-//    }
-//    result.append(postfix)
-//    return result.toString()
-//}
+fun saveUser(user: User) {
+    fun validate(value: String, fileName: String) {
+        if (value.isEmpty()) {
+            throw IllegalArgumentException("Can't save user ${user.id}: empty $fileName")
+        }
+    }
+    validate(user.name, "Name")
+    validate(user.address, "Address")
+    println("保存数据")
+}
+
 

@@ -4,7 +4,6 @@ package com.tencent.cain.util
 
 import com.tencent.cain.Child
 import com.tencent.cain.Parent
-import javax.swing.text.View
 
 @JvmOverloads
 fun <T> joinToString(collection: Collection<T>, separator: String = ", ", prefix: String = "", postfix: String = ""): String {
