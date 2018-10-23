@@ -164,6 +164,18 @@ fun main(args: Array<String>) {
     println("12.345-6.A".split("\\.|-".toRegex()))
     println("12.345-6.A".split(".", "-"))
 
+    println()
+    parsePath("/Users/cainjiang/Downloads/log_analyzer.py")
+
+
+}
+
+fun parsePath(path: String) {
+    val directory = path.substringBeforeLast("/")
+    val fullName = path.substringAfterLast("/")
+    val fileName = fullName.substringBeforeLast(".")
+    val extension = fullName.substringAfterLast(".")
+    println("Dir:$directory, name:$fileName, ext:$extension")
 
 }
 
