@@ -2,6 +2,7 @@ package com.tencent.cain.main
 
 import com.tencent.cain.*
 import com.tencent.cain.person.Person
+import com.tencent.cain.user.Button
 import com.tencent.cain.util.join2Str
 import com.tencent.cain.util.joinToString
 import com.tencent.cain.util.lastChar
@@ -169,6 +170,12 @@ fun main(args: Array<String>) {
 
     println()
     saveUser(User(1,"jay","shenzhen"))
+
+    println()
+    val button = Button()
+    button.click()
+    button.hello()
+    button.showOff()
 }
 
 fun parsePath(path: String) {
