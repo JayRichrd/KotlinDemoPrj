@@ -29,6 +29,11 @@ class ArgsUtil {
     }
 }
 
-class User(val id:Int,val name:String,val address:String)
+class User(val id: Int, val name: String, val address: String)
+
+sealed class NumberBility
+class Number(val value: Int) : NumberBility()
+class Summary(val left: Int, val right: Int) : NumberBility()
+
 
 

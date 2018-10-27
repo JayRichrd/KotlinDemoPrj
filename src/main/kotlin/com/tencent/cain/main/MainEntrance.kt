@@ -1,6 +1,7 @@
 package com.tencent.cain.main
 
 import com.tencent.cain.*
+import com.tencent.cain.Number
 import com.tencent.cain.person.Person
 import com.tencent.cain.user.Button
 import com.tencent.cain.util.join2Str
@@ -95,6 +96,12 @@ fun main(args: Array<String>) {
     val sum = Sum(Num(2), Num(4))
     println("result=${eval3(num) + eval3(sum)}")
 
+    println()
+    val number = Number(4)
+    val summary = Summary(5, 6)
+    println("sealed 测试：result=${eval4(number) + eval4(summary)}")
+
+    println()
     for (i in 1..100) {
         print(fizzBuzz(i))
     }
@@ -169,7 +176,7 @@ fun main(args: Array<String>) {
     parsePath("/Users/cainjiang/Downloads/log_analyzer.py")
 
     println()
-    saveUser(User(1,"jay","shenzhen"))
+    saveUser(User(1, "jay", "shenzhen"))
 
     println()
     val button = Button()
@@ -243,6 +250,11 @@ fun eval3(e: Expr): Int = when (e) {
         left + right
     }
     else -> throw IllegalArgumentException("Unknown expression")
+}
+
+fun eval4(num: NumberBility): Int = when (num) {
+    is Number -> num.value
+    is Summary -> num.left + num.right
 }
 
 fun fizzBuzz(i: Int) = when {
