@@ -4,6 +4,8 @@ import com.tencent.cain.*
 import com.tencent.cain.Number
 import com.tencent.cain.person.Person
 import com.tencent.cain.user.Button
+import com.tencent.cain.user.Client
+import com.tencent.cain.user.DataClient
 import com.tencent.cain.util.join2Str
 import com.tencent.cain.util.joinToString
 import com.tencent.cain.util.lastChar
@@ -195,6 +197,25 @@ fun main(args: Array<String>) {
     val user = com.tencent.cain.user.User("cain")
     user.address = "ShenZhen,GuangDong,China"
     println("${user.userName}'s address: ${user.address}")
+
+    println()
+    val client1 = Client("Alice",34123)
+    val client2 = Client("Alice",34123)
+    val processed = hashSetOf(Client("Alice",34123))
+    println("client1:${client1.toString()}")
+    println("client1 = client2:${client1 == client2}")
+    println("processed contain client1:${processed.contains(Client("Alice",34123))}")
+
+    println()
+    val dataClient1 = DataClient("Cain",51800)
+    val dataClient2 = DataClient("Cain",51800)
+    val dataClient3 = DataClient("cain",51800)
+    val dataClient4 = dataClient1.copy("jiang",23456)
+    println("dataClient4:${dataClient4.toString()}")
+    println("dataClient1:${dataClient1.toString()}")
+    println("dataClient1 = dataClient2:${dataClient1 == dataClient2}, dataClient1 = dataClient3:${dataClient1 == dataClient3}")
+    val process = hashSetOf(DataClient("Jiang",12345))
+    println("process contains:${process.contains(DataClient("Jiang",12345))}")
 
 }
 
