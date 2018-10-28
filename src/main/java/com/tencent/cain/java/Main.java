@@ -4,6 +4,9 @@ import com.tencent.cain.ArgsUtil;
 import com.tencent.cain.Rectangle;
 import com.tencent.cain.person.Employeer;
 import com.tencent.cain.person.Person;
+import com.tencent.cain.user.IJsonFactory;
+import com.tencent.cain.user.ObjectPerson;
+import com.tencent.cain.user.ObjectUser;
 import com.tencent.cain.util.Payroll;
 import com.tencent.cain.util.Utils;
 
@@ -35,12 +38,37 @@ public class Main {
         System.out.println("扩展属性，" + Utils.getLastChar(sb));
 
         System.out.println();
-        Employeer wife = new Employeer("Wife",7800);
-        Employeer husband = new Employeer("Husband",13000);
+        Employeer wife = new Employeer("Wife", 7800);
+        Employeer son = new Employeer("Son", 100);
+        Employeer husband = new Employeer("Husband", 13000);
         Payroll.INSTANCE.getAllEmployees().add(wife);
         Payroll.INSTANCE.getAllEmployees().add(husband);
         Payroll.INSTANCE.calculateSalary();
         System.out.println("family income will be: " + Payroll.INSTANCE.getAllSalaries());
 
+        System.out.println();
+        List<Employeer> employeers = new ArrayList<>();
+        employeers.add(husband);
+        employeers.add(son);
+        employeers.add(wife);
+        employeers.sort(Employeer.EmployeerComparator.INSTANCE);
+        System.out.println("the sequence: " + employeers);
+
+        System.out.println();
+        ObjectUser user1 = ObjectUser.Companion.newSubscribingUser("2645774548@qq.com");
+        System.out.println("user nickname: " + user1.getNickName());
+
+        System.out.println();
+        ObjectPerson objectPerson = loadFromJson(ObjectPerson::new);
+        System.out.println("objectPerson: " + objectPerson.getName());
+
+        System.out.println();
+        System.out.println("伴生对象扩展测试，名字：" + Utils.transformJson(ObjectPerson.Companion,"姜维").getName());
+
+
+    }
+
+    private static <T> T loadFromJson(IJsonFactory<T> factory) {
+        return factory.fromJson("CainJiang");
     }
 }

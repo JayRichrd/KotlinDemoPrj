@@ -2,12 +2,10 @@ package com.tencent.cain.main
 
 import com.tencent.cain.*
 import com.tencent.cain.Number
+import com.tencent.cain.User
 import com.tencent.cain.person.Employeer
 import com.tencent.cain.person.Person
-import com.tencent.cain.user.Button
-import com.tencent.cain.user.Client
-import com.tencent.cain.user.CountingSet
-import com.tencent.cain.user.DataClient
+import com.tencent.cain.user.*
 import com.tencent.cain.util.*
 import java.lang.Exception
 import java.lang.IllegalArgumentException
@@ -198,37 +196,53 @@ fun main(args: Array<String>) {
     println("${user.userName}'s address: ${user.address}")
 
     println()
-    val client1 = Client("Alice",34123)
-    val client2 = Client("Alice",34123)
-    val processed = hashSetOf(Client("Alice",34123))
+    val client1 = Client("Alice", 34123)
+    val client2 = Client("Alice", 34123)
+    val processed = hashSetOf(Client("Alice", 34123))
     println("client1:${client1.toString()}")
     println("client1 = client2:${client1 == client2}")
-    println("processed contain client1:${processed.contains(Client("Alice",34123))}")
+    println("processed contain client1:${processed.contains(Client("Alice", 34123))}")
 
     println()
-    val dataClient1 = DataClient("Cain",51800)
-    val dataClient2 = DataClient("Cain",51800)
-    val dataClient3 = DataClient("cain",51800)
-    val dataClient4 = dataClient1.copy("jiang",23456)
+    val dataClient1 = DataClient("Cain", 51800)
+    val dataClient2 = DataClient("Cain", 51800)
+    val dataClient3 = DataClient("cain", 51800)
+    val dataClient4 = dataClient1.copy("jiang", 23456)
     println("dataClient4:${dataClient4.toString()}")
     println("dataClient1:${dataClient1.toString()}")
     println("dataClient1 = dataClient2:${dataClient1 == dataClient2}, dataClient1 = dataClient3:${dataClient1 == dataClient3}")
-    val process = hashSetOf(DataClient("Jiang",12345))
-    println("process contains:${process.contains(DataClient("Jiang",12345))}")
+    val process = hashSetOf(DataClient("Jiang", 12345))
+    println("process contains:${process.contains(DataClient("Jiang", 12345))}")
 
     println()
-    val cset =  CountingSet<Int>()
-    cset.addAll(listOf(1,1,2))
+    val cset = CountingSet<Int>()
+    cset.addAll(listOf(1, 1, 2))
     println("${cset.objectAdded} objects were added, ${cset.size} remain, elements: ${cset.innerSet}")
 
     println()
-    val wife = Employeer("Ying",7800)
-    val husband = Employeer("Cain",13000)
+    val son = Employeer("Son", 200)
+    val wife = Employeer("Ying", 7800)
+    val husband = Employeer("Cain", 13000)
     Payroll.allEmployees.add(wife)
     Payroll.allEmployees.add(husband)
     Payroll.calculateSalary()
     println("family all incom will be:${Payroll.allSalaries}")
 
+    println()
+    val employees = listOf(wife, husband, son)
+    println(employees.sortedWith(Employeer.EmployeerComparator))
+
+    println()
+    val subscribingUser = ObjectUser.newSubscribingUser("jiangfengfn12@126.com")
+    val facebookObjectUser = ObjectUser.newFacebookUser(1179465696)
+    println("subscribingUser nickName:${subscribingUser.nickName}, facebookObjectUser nickName:${facebookObjectUser.nickName}")
+
+    println()
+    val objectPerson = loadFromJson(ObjectPerson)
+    println("objectPerson: ${objectPerson.name}")
+
+    println()
+    println("伴生对象扩展测试，objectPerson'name: ${ObjectPerson.transformJson("姜瑜").name}")
 
 
 
@@ -324,6 +338,10 @@ fun saveUser(user: User) {
     validate(user.name, "Name")
     validate(user.address, "Address")
     println("保存数据")
+}
+
+fun <T> loadFromJson(factory: IJsonFactory<T>): T {
+    return factory.fromJson("jiangyu")
 }
 
 

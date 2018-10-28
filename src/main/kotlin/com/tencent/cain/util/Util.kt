@@ -4,6 +4,7 @@ package com.tencent.cain.util
 
 import com.tencent.cain.Child
 import com.tencent.cain.Parent
+import com.tencent.cain.user.ObjectPerson
 
 @JvmOverloads
 fun <T> joinToString(collection: Collection<T>, separator: String = ", ", prefix: String = "", postfix: String = ""): String {
@@ -44,4 +45,8 @@ var StringBuilder.lastChar: Char
 fun String.lastChar(size: Int): Char {
     println("size of str: ${size}")
     return this.get(this.length - 1)
+}
+
+fun ObjectPerson.Companion.transformJson(json:String):ObjectPerson{
+    return ObjectPerson(json)
 }
