@@ -191,6 +191,11 @@ fun main(args: Array<String>) {
     val facebookUser = FacebookUser(123)
     println("facebookUser:${facebookUser.accoutId}, ${facebookUser.email}, ${facebookUser.nickName}")
 
+    println()
+    val user = com.tencent.cain.user.User("cain")
+    user.address = "ShenZhen,GuangDong,China"
+    println("${user.userName}'s address: ${user.address}")
+
 }
 
 fun parsePath(path: String) {

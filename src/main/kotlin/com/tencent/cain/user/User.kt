@@ -1,7 +1,10 @@
 package com.tencent.cain.user
 
-interface IUser {
-    val email: String
-    val nickName: String
-        get() = email.substringBefore('@')
+class User(val userName:String) {
+    var address:String = "unspecified"
+    set(value) {
+        println("""Address was changed for $userName:
+            |"$field" -> "$value"""".trimMargin())
+        field = value
+    }
 }
