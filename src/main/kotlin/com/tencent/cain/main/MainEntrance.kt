@@ -5,6 +5,7 @@ import com.tencent.cain.Number
 import com.tencent.cain.person.Person
 import com.tencent.cain.user.Button
 import com.tencent.cain.user.Client
+import com.tencent.cain.user.CountingSet
 import com.tencent.cain.user.DataClient
 import com.tencent.cain.util.join2Str
 import com.tencent.cain.util.joinToString
@@ -216,6 +217,13 @@ fun main(args: Array<String>) {
     println("dataClient1 = dataClient2:${dataClient1 == dataClient2}, dataClient1 = dataClient3:${dataClient1 == dataClient3}")
     val process = hashSetOf(DataClient("Jiang",12345))
     println("process contains:${process.contains(DataClient("Jiang",12345))}")
+
+    println()
+    val cset =  CountingSet<Int>()
+    cset.addAll(listOf(1,1,2))
+    println("${cset.objectAdded} objects were added, ${cset.size} remain, elements: ${cset.innerSet}")
+
+
 
 }
 
