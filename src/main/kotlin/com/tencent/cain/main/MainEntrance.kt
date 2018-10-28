@@ -2,15 +2,13 @@ package com.tencent.cain.main
 
 import com.tencent.cain.*
 import com.tencent.cain.Number
+import com.tencent.cain.person.Employeer
 import com.tencent.cain.person.Person
 import com.tencent.cain.user.Button
 import com.tencent.cain.user.Client
 import com.tencent.cain.user.CountingSet
 import com.tencent.cain.user.DataClient
-import com.tencent.cain.util.join2Str
-import com.tencent.cain.util.joinToString
-import com.tencent.cain.util.lastChar
-import com.tencent.cain.util.showOff
+import com.tencent.cain.util.*
 import java.lang.Exception
 import java.lang.IllegalArgumentException
 import java.util.*
@@ -222,6 +220,15 @@ fun main(args: Array<String>) {
     val cset =  CountingSet<Int>()
     cset.addAll(listOf(1,1,2))
     println("${cset.objectAdded} objects were added, ${cset.size} remain, elements: ${cset.innerSet}")
+
+    println()
+    val wife = Employeer("Ying",7800)
+    val husband = Employeer("Cain",13000)
+    Payroll.allEmployees.add(wife)
+    Payroll.allEmployees.add(husband)
+    Payroll.calculateSalary()
+    println("family all incom will be:${Payroll.allSalaries}")
+
 
 
 

@@ -2,7 +2,9 @@ package com.tencent.cain.java;
 
 import com.tencent.cain.ArgsUtil;
 import com.tencent.cain.Rectangle;
+import com.tencent.cain.person.Employeer;
 import com.tencent.cain.person.Person;
+import com.tencent.cain.util.Payroll;
 import com.tencent.cain.util.Utils;
 
 import java.util.ArrayList;
@@ -31,5 +33,14 @@ public class Main {
         System.out.println("扩展属性，" + Utils.getLastChar(sb));
         Utils.setLastChar(sb, '?');
         System.out.println("扩展属性，" + Utils.getLastChar(sb));
+
+        System.out.println();
+        Employeer wife = new Employeer("Wife",7800);
+        Employeer husband = new Employeer("Husband",13000);
+        Payroll.INSTANCE.getAllEmployees().add(wife);
+        Payroll.INSTANCE.getAllEmployees().add(husband);
+        Payroll.INSTANCE.calculateSalary();
+        System.out.println("family income will be: " + Payroll.INSTANCE.getAllSalaries());
+
     }
 }
