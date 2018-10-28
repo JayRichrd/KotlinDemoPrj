@@ -183,6 +183,14 @@ fun main(args: Array<String>) {
     button.click()
     button.hello()
     button.showOff()
+
+    println()
+    val privateUser = PrivateUser("jiangfengfn@163.com")
+    println("privateUser:${privateUser.email}, ${privateUser.nickName}")
+
+    val facebookUser = FacebookUser(123)
+    println("facebookUser:${facebookUser.accoutId}, ${facebookUser.email}, ${facebookUser.nickName}")
+
 }
 
 fun parsePath(path: String) {

@@ -1,5 +1,7 @@
 package com.tencent.cain
 
+import com.tencent.cain.user.IUser
+
 /**
  * @author cainjiang
  * @date 2018/10/12
@@ -34,6 +36,17 @@ class User(val id: Int, val name: String, val address: String)
 sealed class NumberBility
 class Number(val value: Int) : NumberBility()
 class Summary(val left: Int, val right: Int) : NumberBility()
+
+class PrivateUser(override val email: String) : IUser
+class SubscribingUser(_email: String) : IUser {
+    override val email = _email
+}
+
+class FacebookUser(val accoutId: Int) : IUser {
+    override val email = getFacebookName(accoutId)
+
+    private fun getFacebookName(accoutId: Int) = accoutId.toString()
+}
 
 
 
