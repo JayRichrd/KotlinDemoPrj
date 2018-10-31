@@ -243,6 +243,7 @@ fun main(args: Array<String>) {
 
     println()
     println("伴生对象扩展测试，objectPerson'name: ${ObjectPerson.transformJson("姜瑜").name}")
+    GIFT
 
 
 

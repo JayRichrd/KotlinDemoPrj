@@ -65,6 +65,9 @@ public class Main {
         System.out.println();
         System.out.println("伴生对象扩展测试，名字：" + Utils.transformJson(ObjectPerson.Companion,"姜维").getName());
 
+        Class3 class3 = new Class3();
+        System.out.println("获取到父类的属性值：" + class3.getAge());
+
 
     }
 

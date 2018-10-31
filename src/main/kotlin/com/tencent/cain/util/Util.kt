@@ -50,3 +50,5 @@ fun String.lastChar(size: Int): Char {
 fun ObjectPerson.Companion.transformJson(json:String):ObjectPerson{
     return ObjectPerson(json)
 }
+
+const val GIFT = 1004
