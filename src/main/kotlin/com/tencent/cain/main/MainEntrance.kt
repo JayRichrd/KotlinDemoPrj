@@ -245,6 +245,9 @@ fun main(args: Array<String>) {
     println("伴生对象扩展测试，objectPerson'name: ${ObjectPerson.transformJson("姜瑜").name}")
     GIFT
 
+    println()
+    val dataPerson = listOf(DataPerson("Alice",29),DataPerson("Bobe",27),DataPerson("Cain",30))
+    println(dataPerson.maxBy { it.age })
 
 
 }
