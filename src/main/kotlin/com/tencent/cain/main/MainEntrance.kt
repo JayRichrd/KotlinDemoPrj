@@ -245,6 +245,12 @@ fun main(args: Array<String>) {
     println("伴生对象扩展测试，objectPerson'name: ${ObjectPerson.transformJson("姜瑜").name}")
     GIFT
 
+    println()
+    println("比较枚举类型是否相等：${Color.GREEN == Color.GREEN}")
+    val parent3 = Parent()
+    val parent4 = Parent()
+    println("比较对象是否相等：${parent3 == parent4}")
+
 
 
 }
