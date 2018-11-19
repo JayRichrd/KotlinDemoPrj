@@ -246,17 +246,33 @@ fun main(args: Array<String>) {
     GIFT
 
     println()
-    val dataPerson = listOf(DataPerson("Alice", 29), DataPerson("Bobe", 27), DataPerson("Cain", 30))
+    val dataPerson = listOf(DataPerson("Alice", 29), DataPerson("Bobe", 29), DataPerson("Cain", 30))
     println(dataPerson.maxBy { it.age })
 
     println()
     val numLst = listOf(1, 2, 3, 4)
     println(numLst.filter { it % 2 == 0 })
     println(dataPerson.filter { it.age > 29 })
-    println(numLst.map { it*it })
+    println(numLst.map { it * it })
     println(dataPerson.map { it.name })
-    println(dataPerson.filter { it.age > 29 }.map (DataPerson::name ))
+    println(dataPerson.filter { it.age > 29 }.map(DataPerson::name))
 
+    val mapDemo = mapOf(0 to "zero", 1 to "one")
+    println(mapDemo.mapValues { it.value.toUpperCase() })
+
+    println()
+    val canBeInClu28 = { p: DataPerson -> p.age < 28 }
+    println(dataPerson.all(canBeInClu28))
+    println(dataPerson.any(canBeInClu28))
+    println(dataPerson.count(canBeInClu28))
+    println(dataPerson.find(canBeInClu28))
+
+    println()
+    println(dataPerson.groupBy { it.age }.filterKeys { it == 29 })
+
+    println()
+    val strings = listOf("abc","bcd","cde")
+    println(strings.flatMap { it.toList() }.toSet())
 }
 
 fun parsePath(path: String) {
