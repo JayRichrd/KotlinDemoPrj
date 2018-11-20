@@ -7,6 +7,7 @@ import com.tencent.cain.person.Employeer
 import com.tencent.cain.person.Person
 import com.tencent.cain.user.*
 import com.tencent.cain.util.*
+import java.io.File
 import java.lang.Exception
 import java.lang.IllegalArgumentException
 import java.util.*
@@ -280,7 +281,17 @@ fun main(args: Array<String>) {
     println()
     listOf(1, 2, 3, 4).asSequence().map { println("map($it)"); it * it }.filter { println("filter($it)");it % 2 == 0 }.toList()
 
+    println()
+    val naturalNumbers = generateSequence(0) { it + 1 }
+    val numbersTo100 = naturalNumbers.takeWhile { it <= 100 }
+    println(numbersTo100.sum())
+
+    val file = File("/Users/jiangyu/package-lock.json")
+    println(file.isInsideHiddenDirectory())
+
 }
+
+fun File.isInsideHiddenDirectory() = generateSequence(this) { it.parentFile }.find { it.isHidden }
 
 fun parsePath(path: String) {
     val directory = path.substringBeforeLast("/")
