@@ -271,8 +271,15 @@ fun main(args: Array<String>) {
     println(dataPerson.groupBy { it.age }.filterKeys { it == 29 })
 
     println()
-    val strings = listOf("abc","bcd","cde")
+    val strings = listOf("abc", "bcd", "cde")
     println(strings.flatMap { it.toList() }.toSet())
+
+    println()
+    println(dataPerson.asSequence().map(DataPerson::name).filter { it.startsWith("A") }.toList())
+
+    println()
+    listOf(1, 2, 3, 4).asSequence().map { println("map($it)"); it * it }.filter { println("filter($it)");it % 2 == 0 }.toList()
+
 }
 
 fun parsePath(path: String) {
