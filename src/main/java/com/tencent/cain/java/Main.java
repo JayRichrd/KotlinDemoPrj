@@ -74,4 +74,6 @@ public class Main {
     private static <T> T loadFromJson(IJsonFactory<T> factory) {
         return factory.fromJson("CainJiang");
     }
+
+
 }

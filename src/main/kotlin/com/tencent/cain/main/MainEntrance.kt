@@ -3,6 +3,7 @@ package com.tencent.cain.main
 import com.tencent.cain.*
 import com.tencent.cain.Number
 import com.tencent.cain.User
+import com.tencent.cain.java.HandleComputation
 import com.tencent.cain.person.Employeer
 import com.tencent.cain.person.Person
 import com.tencent.cain.user.*
@@ -289,9 +290,37 @@ fun main(args: Array<String>) {
     val file = File("/Users/jiangyu/package-lock.json")
     println(file.isInsideHiddenDirectory())
 
+    println()
+    val handleComputation = HandleComputation()
+    handleComputation.postponeComputation(1000) { println("handleComputation") }
+    handleComputation.postponeComputation(100, object : Runnable {
+        override fun run() {
+            println("file:${file.absolutePath}")
+        }
+    })
+
+    println()
+    println(alphabet1())
+    println(alphabet2())
+
 }
 
-fun File.isInsideHiddenDirectory() = generateSequence(this) { it.parentFile }.find { it.isHidden }
+fun alphabet1() = with(StringBuilder()){
+    for (letter in 'A'..'Z'){
+        this.append(letter)
+    }
+    this.append("\nNow I know the alphabet")
+    this.toString()
+}
+
+fun alphabet2() = StringBuilder().apply {
+    for (letter in 'A'..'Z'){
+        this.append(letter)
+    }
+    append("\nNow I know the alphabet")
+}.toString()
+
+fun File.isInsideHiddenDirectory() = generateSequence(this) { it.parentFile }.any { it.isHidden }
 
 fun parsePath(path: String) {
     val directory = path.substringBeforeLast("/")
