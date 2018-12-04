@@ -3,10 +3,12 @@ package com.tencent.cain.main
 import com.tencent.cain.*
 import com.tencent.cain.Number
 import com.tencent.cain.User
+import com.tencent.cain.java.HandleComputation
 import com.tencent.cain.person.Employeer
 import com.tencent.cain.person.Person
 import com.tencent.cain.user.*
 import com.tencent.cain.util.*
+import java.io.File
 import java.lang.Exception
 import java.lang.IllegalArgumentException
 import java.util.*
@@ -246,6 +248,17 @@ fun main(args: Array<String>) {
     GIFT
 
     println()
+    val dataPerson = listOf(DataPerson("Alice", 29), DataPerson("Bobe", 29), DataPerson("Cain", 30))
+    println(dataPerson.maxBy { it.age })
+
+    println()
+    val numLst = listOf(1, 2, 3, 4)
+    println(numLst.filter { it % 2 == 0 })
+    println(dataPerson.filter { it.age > 29 })
+    println(numLst.map { it * it })
+    println(dataPerson.map { it.name })
+    println(dataPerson.filter { it.age > 29 }.map(DataPerson::name))
+    println()
     println("比较枚举类型是否相等：${Color.GREEN == Color.GREEN}")
     val parent3 = Parent()
     val parent4 = Parent()
@@ -258,12 +271,55 @@ fun main(args: Array<String>) {
         it.toString().equals("")
     })
 
+    val mapDemo = mapOf(0 to "zero", 1 to "one")
+    println(mapDemo.mapValues { it.value.toUpperCase() })
     println()
     val hashmap = hashMapOf("0_t" to "1")
     val requiredType: Int = hashmap["t"]?.let {
         return@let Integer.parseInt(it)
     } ?: 0
     println("解析的结果是：$requiredType")
+
+    println()
+    val canBeInClu28 = { p: DataPerson -> p.age < 28 }
+    println(dataPerson.all(canBeInClu28))
+    println(dataPerson.any(canBeInClu28))
+    println(dataPerson.count(canBeInClu28))
+    println(dataPerson.find(canBeInClu28))
+
+    println()
+    println(dataPerson.groupBy { it.age }.filterKeys { it == 29 })
+
+    println()
+    val strings = listOf("abc", "bcd", "cde")
+    println(strings.flatMap { it.toList() }.toSet())
+
+    println()
+    println(dataPerson.asSequence().map(DataPerson::name).filter { it.startsWith("A") }.toList())
+
+    println()
+    listOf(1, 2, 3, 4).asSequence().map { println("map($it)"); it * it }.filter { println("filter($it)");it % 2 == 0 }.toList()
+
+    println()
+    val naturalNumbers = generateSequence(0) { it + 1 }
+    val numbersTo100 = naturalNumbers.takeWhile { it <= 100 }
+    println(numbersTo100.sum())
+
+    val file = File("/Users/jiangyu/package-lock.json")
+    println(file.isInsideHiddenDirectory())
+
+    println()
+    val handleComputation = HandleComputation()
+    handleComputation.postponeComputation(1000) { println("handleComputation") }
+    handleComputation.postponeComputation(100, object : Runnable {
+        override fun run() {
+            println("file:${file.absolutePath}")
+        }
+    })
+
+    println()
+    println(alphabet1())
+    println(alphabet2())
 
     println()
     for (i in 0 until 0) {
@@ -274,6 +330,23 @@ fun main(args: Array<String>) {
     val transFormStr = "某某{0}获得了{1}张"
     transFormStr.transForm()
 }
+
+fun alphabet1() = with(StringBuilder()){
+    for (letter in 'A'..'Z'){
+        this.append(letter)
+    }
+    this.append("\nNow I know the alphabet")
+    this.toString()
+}
+
+fun alphabet2() = StringBuilder().apply {
+    for (letter in 'A'..'Z'){
+        this.append(letter)
+    }
+    append("\nNow I know the alphabet")
+}.toString()
+
+fun File.isInsideHiddenDirectory() = generateSequence(this) { it.parentFile }.any { it.isHidden }
 
 fun parsePath(path: String) {
     val directory = path.substringBeforeLast("/")
