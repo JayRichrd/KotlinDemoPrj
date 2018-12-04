@@ -47,8 +47,19 @@ fun String.lastChar(size: Int): Char {
     return this.get(this.length - 1)
 }
 
-fun ObjectPerson.Companion.transformJson(json:String):ObjectPerson{
+fun ObjectPerson.Companion.transformJson(json: String): ObjectPerson {
     return ObjectPerson(json)
 }
 
 const val GIFT = 1004
+
+fun String.transForm() {
+    println("替换后的结果：$this")
+    val result = this.replace("{0}", "姜瑜")
+    println("替换前的结果：$result")
+}
+
+fun transFormation(source:String){
+    println("替换后的结果：$source")
+    source.replaceFirst("某某", "姜瑜")
+    println("替换前的结果：$source")}

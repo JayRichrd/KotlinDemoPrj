@@ -251,8 +251,28 @@ fun main(args: Array<String>) {
     val parent4 = Parent()
     println("比较对象是否相等：${parent3 == parent4}")
 
+    println()
+    val coutStr = "某某某{0},获得了{1}张{2}"
+    println(coutStr.count {
+        println("当前字符：$it, 与某是否相等：${it.toString().equals("某")}")
+        it.toString().equals("")
+    })
 
+    println()
+    val hashmap = hashMapOf("0_t" to "1")
+    val requiredType: Int = hashmap["t"]?.let {
+        return@let Integer.parseInt(it)
+    } ?: 0
+    println("解析的结果是：$requiredType")
 
+    println()
+    for (i in 0 until 0) {
+        println("遍历结果：$i")
+    }
+
+    println()
+    val transFormStr = "某某{0}获得了{1}张"
+    transFormStr.transForm()
 }
 
 fun parsePath(path: String) {
