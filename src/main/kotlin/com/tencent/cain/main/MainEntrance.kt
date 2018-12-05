@@ -332,6 +332,10 @@ fun main(args: Array<String>) {
     var nullStr:String? = null
     nullStr.isNullOrBlank()
 
+    println()
+    val elString = "abcdefg"
+    println(elString.el(3))
+
 }
 
 fun alphabet1() = with(StringBuilder()){

@@ -49,3 +49,5 @@ KotlinDemoPrj.iml
 build/
 out/
 
+/package.json
+/CHANGELOG.md
