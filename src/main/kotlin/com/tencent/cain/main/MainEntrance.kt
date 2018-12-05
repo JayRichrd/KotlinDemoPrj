@@ -258,9 +258,27 @@ fun main(args: Array<String>) {
     println(numLst.map { it * it })
     println(dataPerson.map { it.name })
     println(dataPerson.filter { it.age > 29 }.map(DataPerson::name))
+    println()
+    println("比较枚举类型是否相等：${Color.GREEN == Color.GREEN}")
+    val parent3 = Parent()
+    val parent4 = Parent()
+    println("比较对象是否相等：${parent3 == parent4}")
+
+    println()
+    val coutStr = "某某某{0},获得了{1}张{2}"
+    println(coutStr.count {
+        println("当前字符：$it, 与某是否相等：${it.toString().equals("某")}")
+        it.toString().equals("")
+    })
 
     val mapDemo = mapOf(0 to "zero", 1 to "one")
     println(mapDemo.mapValues { it.value.toUpperCase() })
+    println()
+    val hashmap = hashMapOf("0_t" to "1")
+    val requiredType: Int = hashmap["t"]?.let {
+        return@let Integer.parseInt(it)
+    } ?: 0
+    println("解析的结果是：$requiredType")
 
     println()
     val canBeInClu28 = { p: DataPerson -> p.age < 28 }
@@ -303,6 +321,14 @@ fun main(args: Array<String>) {
     println(alphabet1())
     println(alphabet2())
 
+    println()
+    for (i in 0 until 0) {
+        println("遍历结果：$i")
+    }
+
+    println()
+    val transFormStr = "某某{0}获得了{1}张"
+    transFormStr.transForm()
     var nullStr:String? = null
     nullStr.isNullOrBlank()
 
