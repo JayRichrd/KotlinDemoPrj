@@ -303,6 +303,9 @@ fun main(args: Array<String>) {
     println(alphabet1())
     println(alphabet2())
 
+    var nullStr:String? = null
+    nullStr.isNullOrBlank()
+
 }
 
 fun alphabet1() = with(StringBuilder()){
