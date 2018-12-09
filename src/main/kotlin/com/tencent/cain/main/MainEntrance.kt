@@ -8,7 +8,9 @@ import com.tencent.cain.person.Employeer
 import com.tencent.cain.person.Person
 import com.tencent.cain.user.*
 import com.tencent.cain.util.*
+import java.io.BufferedReader
 import java.io.File
+import java.io.StringReader
 import java.lang.Exception
 import java.lang.IllegalArgumentException
 import java.util.*
@@ -329,17 +331,80 @@ fun main(args: Array<String>) {
     println()
     val transFormStr = "某某{0}获得了{1}张"
     transFormStr.transForm()
-    var nullStr:String? = null
+    var nullStr: String? = null
     nullStr.isNullOrBlank()
 
     println()
     val elString = "abcdefg"
     println(elString.el(3))
 
+    println()
+    val numStr = "34"
+    println("字符串得到的数字：${numStr.toInt()}")
+    println("字符串得到的数字：${numStr.toLongOrNull()}")
+
+    println()
+    val reader = BufferedReader(StringReader("1\nabc\n42"))
+    val numbers = readerNumbers(reader)
+    addValidNumbers(numbers)
+
+    println()
+    val source: Collection<Int> = listOf(3, 4, 5)
+    val target: MutableCollection<Int> = mutableListOf(2)
+    copyElements(source, target)
+    println("target: $target")
+
+    println()
+    val letters = Array(26) { i -> ('a' + i).toString() }
+    println(letters.joinToString(""))
+
+    println()
+    val stringsArray = arrayListOf<String>("a", "b", "c")
+    println("%s/%s/%s".format(*stringsArray.toTypedArray()))
+
+    println()
+    val fiveZero = IntArray(5)
+    val fiveNum = intArrayOf(1, 2, 3, 4, 5)
+    val squares = IntArray(5) { i -> (i + 1) * (i + 1) }
+    val five = arrayListOf(1, 1, 1, 1)
+    println("fiveZero: ${fiveZero.joinToString()}")
+    println("fiveNum: ${fiveNum.joinToString()}")
+    println("squares: ${squares.joinToString()}")
+    println("five: $five")
+    println("five to array: ${five.toIntArray().joinToString()}")
+
+
 }
 
-fun alphabet1() = with(StringBuilder()){
-    for (letter in 'A'..'Z'){
+fun <T> copyElements(source: Collection<T>, target: MutableCollection<T>) {
+    for (item in source) {
+        target.add(item)
+    }
+}
+
+fun readerNumbers(reader: BufferedReader): List<Int?> {
+    val result = ArrayList<Int?>()
+    for (line in reader.lineSequence()) {
+        try {
+            val number = line.toInt()
+            result.add(number)
+        } catch (e: NumberFormatException) {
+            result.add(null)
+        }
+    }
+    return result
+}
+
+fun addValidNumbers(numbers: List<Int?>) {
+    val validNumbers = numbers.filterNotNull()
+    println("numbers: $numbers")
+    println("validNumbers: $validNumbers")
+    println("Sunm of valid numbers: ${validNumbers.sum()}")
+    println("Invalid numbers: ${numbers.size - validNumbers.size}")
+}
+
+fun alphabet1() = with(StringBuilder()) {
+    for (letter in 'A'..'Z') {
         this.append(letter)
     }
     this.append("\nNow I know the alphabet")
@@ -347,7 +412,7 @@ fun alphabet1() = with(StringBuilder()){
 }
 
 fun alphabet2() = StringBuilder().apply {
-    for (letter in 'A'..'Z'){
+    for (letter in 'A'..'Z') {
         this.append(letter)
     }
     append("\nNow I know the alphabet")
