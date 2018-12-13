@@ -87,9 +87,6 @@ fun main(args: Array<String>) {
     person.age = 28
     println("person name : ${person.name} ,age : ${person.age}")
 
-    val rectangle = Rectangle(23, 23)
-    println("this is square：${rectangle.isSquare}")
-
     println(getMnemonic(Color.BLUE))
     val color = Color.BLUE
     println(color.rgb())
@@ -372,6 +369,19 @@ fun main(args: Array<String>) {
     println("squares: ${squares.joinToString()}")
     println("five: $five")
     println("five to array: ${five.toIntArray().joinToString()}")
+
+    println()
+    val p = Point(10, 20)
+    println("p[0] = ${p[0]}, p[1] = ${p[1]}")
+    p[0] = 30
+    p[1] = 40
+    println("p[0] = ${p[0]}, p[1] = ${p[1]}")
+
+    println()
+    val rectangle = Rectangle(Point(10, 10), Point(20, 20))
+    val p1 = Point(15, 15)
+    val p2 = Point(15, 30)
+    println("p1 is in rectangle: ${p1 in rectangle}, p2 is in rectangle: ${p2 in rectangle}")
 
 
 }

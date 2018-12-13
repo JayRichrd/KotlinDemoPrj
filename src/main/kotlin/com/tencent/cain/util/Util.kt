@@ -4,6 +4,7 @@ package com.tencent.cain.util
 
 import com.tencent.cain.Child
 import com.tencent.cain.Parent
+import com.tencent.cain.Point
 import com.tencent.cain.user.ObjectPerson
 
 @JvmOverloads
@@ -59,15 +60,17 @@ fun String.transForm() {
     println("替换前的结果：$result")
 }
 
-fun transFormation(source:String){
+fun transFormation(source: String) {
     println("替换后的结果：$source")
     source.replaceFirst("某某", "姜瑜")
-    println("替换前的结果：$source")}
+    println("替换前的结果：$source")
+}
 
-fun String.el(limit:Int):String{
-    var result:String = this
-    if (this.length > limit){
-        result = this.substring(0,limit) + "..."
+fun String.el(limit: Int): String {
+    var result: String = this
+    if (this.length > limit) {
+        result = this.substring(0, limit) + "..."
     }
     return result
 }
+
