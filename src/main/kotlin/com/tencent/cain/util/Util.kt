@@ -61,7 +61,14 @@ fun String.transForm() {
     println("替换前的结果：$result")
 }
 
-fun transFormation(source: String) {
+/**
+ * 查询字符串中，包含某个字符的个数
+ */
+fun String.getSpecialStrCount(specialStr:String)= this.count {
+    it.toString().equals(specialStr)
+}
+
+fun transFormation(source:String){
     println("替换后的结果：$source")
     source.replaceFirst("某某", "姜瑜")
     println("替换前的结果：$source")
