@@ -3,16 +3,21 @@ package com.tencent.cain.main
 import com.tencent.cain.*
 import com.tencent.cain.Number
 import com.tencent.cain.User
+import com.tencent.cain.data.NameComponents
 import com.tencent.cain.java.HandleComputation
 import com.tencent.cain.person.Employeer
 import com.tencent.cain.person.Person
 import com.tencent.cain.user.*
 import com.tencent.cain.util.*
+import org.omg.CosNaming.NameComponent
+import java.beans.PropertyChangeEvent
+import java.beans.PropertyChangeListener
 import java.io.BufferedReader
 import java.io.File
 import java.io.StringReader
 import java.lang.Exception
 import java.lang.IllegalArgumentException
+import java.time.LocalDate
 import java.util.*
 
 fun main(args: Array<String>) {
@@ -376,6 +381,8 @@ fun main(args: Array<String>) {
     p[0] = 30
     p[1] = 40
     println("p[0] = ${p[0]}, p[1] = ${p[1]}")
+    val (x, y) = p
+    println("x = $x, y = $y")
 
     println()
     val rectangle = Rectangle(Point(10, 10), Point(20, 20))
@@ -383,7 +390,33 @@ fun main(args: Array<String>) {
     val p2 = Point(15, 30)
     println("p1 is in rectangle: ${p1 in rectangle}, p2 is in rectangle: ${p2 in rectangle}")
 
+    println()
+    val now = LocalDate.now()
+    val vacation = now.plusDays(10)
+    println("now: $now, vocation: $vacation")
+    for (date in now..vacation) {
+        println(date)
+    }
 
+    println()
+    val (name, ext) = splitFileName("example.kt")
+    println("name: $name, ext: $ext")
+
+    println()
+    val woker1 = Worker("cainjiang", 28, 16000)
+    val changeListener = PropertyChangeListener { event ->
+        println("Property ${event.propertyName} changed from ${event.oldValue} to ${event.newValue}")
+    }
+    woker1.addPropertyChangeListener(changeListener)
+    woker1.age = 29
+    woker1.salary = 20000
+    woker1.removePropertyChangeListener(changeListener)
+
+}
+
+fun splitFileName(fullName: String): NameComponents {
+    val (name, ext) = fullName.split('.', limit = 2)
+    return NameComponents(name, ext)
 }
 
 fun <T> copyElements(source: Collection<T>, target: MutableCollection<T>) {

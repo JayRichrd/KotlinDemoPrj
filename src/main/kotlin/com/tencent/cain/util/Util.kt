@@ -6,6 +6,7 @@ import com.tencent.cain.Child
 import com.tencent.cain.Parent
 import com.tencent.cain.Point
 import com.tencent.cain.user.ObjectPerson
+import java.time.LocalDate
 
 @JvmOverloads
 fun <T> joinToString(collection: Collection<T>, separator: String = ", ", prefix: String = "", postfix: String = ""): String {
@@ -73,4 +74,21 @@ fun String.el(limit: Int): String {
     }
     return result
 }
+
+operator fun ClosedRange<LocalDate>.iterator(): Iterator<LocalDate> =
+        object : Iterator<LocalDate> {
+            var current = start
+            /**
+             * Returns `true` if the iteration has more elements.
+             */
+            override fun hasNext(): Boolean = current <= endInclusive
+
+            /**
+             * Returns the next element in the iteration.
+             */
+            override fun next(): LocalDate = current.apply {
+                current = plusDays(1)
+            }
+
+        }
 
