@@ -411,6 +411,11 @@ fun main(args: Array<String>) {
     woker1.age = 29
     woker1.salary = 20000
     woker1.removePropertyChangeListener(changeListener)
+    val data = mapOf("gender" to "male")
+    for ((attrName, value) in data) {
+        woker1.setAttribute(attrName, value)
+    }
+    println("worker1 gender = ${woker1.gender}")
 
 }
 
