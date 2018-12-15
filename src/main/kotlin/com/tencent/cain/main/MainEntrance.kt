@@ -332,6 +332,8 @@ fun main(args: Array<String>) {
 
     println()
     val transFormStr = "某某{0}获得了{1}张"
+    val countStr = transFormStr.getSpecialStrCount("a")
+    println("包含字符串的个数：$countStr")
     transFormStr.transForm()
     var nullStr: String? = null
     nullStr.isNullOrBlank()
