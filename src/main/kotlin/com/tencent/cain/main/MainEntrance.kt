@@ -419,6 +419,15 @@ fun main(args: Array<String>) {
     }
     println("worker1 gender = ${woker1.gender}")
 
+    println()
+    val reg = Regex("([0-9a-fA-F]{6}|[0-9a-fA-F]{8})$")
+    val colorStr = "8aaffdd"
+    println(reg.matches(colorStr))
+
+    println()
+    val map = mutableMapOf(1 to "jiang", 2 to "yu")
+    println("获取map中的3号元素：${map[3]}")
+
 }
 
 fun splitFileName(fullName: String): NameComponents {

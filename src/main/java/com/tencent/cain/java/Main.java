@@ -12,8 +12,10 @@ import com.tencent.cain.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
+    private static  AtomicInteger mMaxQueueSize;
     public static void main(String[] args) {
         Person person = new Person();
         person.setName("姜瑜");
@@ -65,6 +67,13 @@ public class Main {
 
         Class3 class3 = new Class3();
         System.out.println("获取到父类的属性值：" + class3.getAge());
+
+        mMaxQueueSize = new AtomicInteger(0);
+        int previous = mMaxQueueSize.get();
+        System.out.println("当前的值：" + previous);
+        if (mMaxQueueSize.compareAndSet(previous,previous)){
+            System.out.println("设置成功,当前的值：" + mMaxQueueSize.get());
+        }
 
 
     }
