@@ -4,6 +4,7 @@ import com.tencent.cain.*
 import com.tencent.cain.Number
 import com.tencent.cain.User
 import com.tencent.cain.data.NameComponents
+import com.tencent.cain.data.Order
 import com.tencent.cain.java.HandleComputation
 import com.tencent.cain.person.Employeer
 import com.tencent.cain.person.Person
@@ -433,8 +434,26 @@ fun main(args: Array<String>) {
     twoAndThree { a, b -> a * b }
 
     println()
+    val lettersStr = listOf("ABC", "DEF")
+    println(lettersStr.joinToString(separator = "!", postfix = "!", transform = { it.toLowerCase() }))
+    foo { println("callback!") }
 
+    println()
+    val calculator = getShippingCostCalculator(Delivery.EXPERDITED)
+    println("Shipping cost ${calculator(Order(3))}")
 
+}
+
+fun getShippingCostCalculator(delivery: Delivery): (Order) -> Double {
+    if (delivery == Delivery.EXPERDITED) {
+        return { order -> 6 + 2.1 * order.itemCount }
+    } else {
+        return { order -> 1.2 * order.itemCount }
+    }
+}
+
+fun foo(callback: (() -> Unit)?) {
+    callback?.invoke()
 }
 
 fun processTheAnswer(f: (Int) -> Int) {
@@ -590,5 +609,7 @@ fun saveUser(user: User) {
 fun <T> loadFromJson(factory: IJsonFactory<T>): T {
     return factory.fromJson("jiangyu")
 }
+
+enum class Delivery { STANDARD, EXPERDITED }
 
 
