@@ -9,9 +9,14 @@ import com.tencent.cain.user.ObjectPerson;
 import com.tencent.cain.user.ObjectUser;
 import com.tencent.cain.util.Payroll;
 import com.tencent.cain.util.Utils;
+import kotlin.Unit;
+import kotlin.collections.CollectionsKt;
+import kotlin.jvm.functions.Function1;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.tencent.cain.main.MainEntranceKt.processTheAnswer;
 
 public class Main {
     public static void main(String[] args) {
@@ -61,17 +66,35 @@ public class Main {
         System.out.println("objectPerson: " + objectPerson.getName());
 
         System.out.println();
-        System.out.println("伴生对象扩展测试，名字：" + Utils.transformJson(ObjectPerson.Companion,"姜维").getName());
+        System.out.println("伴生对象扩展测试，名字：" + Utils.transformJson(ObjectPerson.Companion, "姜维").getName());
 
         Class3 class3 = new Class3();
         System.out.println("获取到父类的属性值：" + class3.getAge());
 
+        System.out.println();
+        processTheAnswer(number -> number + 1);
+        processTheAnswer(new Function1<Integer, Integer>() {
+            @Override
+            public Integer invoke(Integer integer) {
+                System.out.println("输入： " + integer);
+                return integer + 1;
+            }
+        });
+
+        System.out.println();
+        List<String> strings = new ArrayList<>();
+        strings.add("aaa");
+        strings.add("bbb");
+        strings.add("ccc");
+        CollectionsKt.forEach(strings, str -> {
+            System.out.println(str);
+            return Unit.INSTANCE;
+        });
 
     }
 
     private static <T> T loadFromJson(IJsonFactory<T> factory) {
         return factory.fromJson("CainJiang");
     }
-
 
 }

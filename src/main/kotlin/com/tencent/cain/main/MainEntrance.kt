@@ -419,6 +419,22 @@ fun main(args: Array<String>) {
     }
     println("worker1 gender = ${woker1.gender}")
 
+    println()
+    twoAndThree { a, b -> a + b }
+    twoAndThree { a, b -> a * b }
+
+    println()
+
+
+}
+
+fun processTheAnswer(f: (Int) -> Int) {
+    println("输出：${f(42)}")
+}
+
+fun twoAndThree(operation: (Int, Int) -> Int) {
+    val result = operation(2, 3)
+    println("高阶函数计算的结果：$result")
 }
 
 fun splitFileName(fullName: String): NameComponents {
