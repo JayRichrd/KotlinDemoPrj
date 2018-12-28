@@ -6,6 +6,7 @@ import com.tencent.cain.User
 import com.tencent.cain.data.NameComponents
 import com.tencent.cain.data.Order
 import com.tencent.cain.java.HandleComputation
+import com.tencent.cain.person.ContactPerson
 import com.tencent.cain.person.Employeer
 import com.tencent.cain.person.Person
 import com.tencent.cain.user.*
@@ -442,6 +443,13 @@ fun main(args: Array<String>) {
     val calculator = getShippingCostCalculator(Delivery.EXPERDITED)
     println("Shipping cost ${calculator(Order(3))}")
 
+    println()
+    val contacts = listOf(ContactPerson("Dmitry", "Jemerov", "123456"), ContactPerson("Jiang", "Yu", "234567"))
+    val contactListFilter = ContactListFilter().apply {
+        prefix = "Dm"
+        onlyWithPhoneNumber = true
+    }
+    println("符合条件的结果是：${contacts.filter(contactListFilter.getPredicate())}")
 }
 
 fun getShippingCostCalculator(delivery: Delivery): (Order) -> Double {
