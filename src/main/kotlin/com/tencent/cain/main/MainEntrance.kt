@@ -5,6 +5,8 @@ import com.tencent.cain.Number
 import com.tencent.cain.User
 import com.tencent.cain.data.NameComponents
 import com.tencent.cain.data.Order
+import com.tencent.cain.data.Os
+import com.tencent.cain.data.SiteVisit
 import com.tencent.cain.java.HandleComputation
 import com.tencent.cain.person.ContactPerson
 import com.tencent.cain.person.Employeer
@@ -12,6 +14,7 @@ import com.tencent.cain.person.Person
 import com.tencent.cain.user.*
 import com.tencent.cain.util.*
 import org.omg.CosNaming.NameComponent
+import sun.jvm.hotspot.ui.tree.SimpleTreeGroupNode
 import java.beans.PropertyChangeEvent
 import java.beans.PropertyChangeListener
 import java.io.BufferedReader
@@ -450,6 +453,21 @@ fun main(args: Array<String>) {
         onlyWithPhoneNumber = true
     }
     println("符合条件的结果是：${contacts.filter(contactListFilter.getPredicate())}")
+
+    println()
+    val log = listOf(SiteVisit("/", 34.0, Os.WINDOWS),
+            SiteVisit("/", 22.0, Os.MAC),
+            SiteVisit("/login", 12.0, Os.WINDOWS),
+            SiteVisit("/siguP", 8.0, Os.IOS),
+            SiteVisit("/", 16.3, Os.ANDROID))
+//    val averageWindows = log.filter { it.os == Os.WINDOWS }.map(SiteVisit::duration).average()
+//    val averageWindows = log.averageDurationFor(Os.WINDOWS)
+    val averageWindows = log.averageDurationFor { it.os == Os.WINDOWS }
+//    val averageMac = log.averageDurationFor(Os.MAC)
+    val averageMac = log.averageDurationFor { it.os == Os.MAC }
+    val averageMobile = log.averageDurationFor { it.os in setOf(Os.ANDROID, Os.IOS) }
+    val averageIos_sigup = log.averageDurationFor { it.os == Os.IOS && it.path.equals("/sigup", true) }
+    println("Windows的平均访问时间：${averageWindows}\nMac的平均时间：${averageMac}\n移动平台的平均访问时间：${averageMobile}\nIOS登陆的平均时间：${averageIos_sigup}")
 }
 
 fun getShippingCostCalculator(delivery: Delivery): (Order) -> Double {
