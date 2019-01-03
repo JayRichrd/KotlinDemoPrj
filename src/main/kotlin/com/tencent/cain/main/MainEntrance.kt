@@ -13,15 +13,11 @@ import com.tencent.cain.person.Employeer
 import com.tencent.cain.person.Person
 import com.tencent.cain.user.*
 import com.tencent.cain.util.*
-import org.omg.CosNaming.NameComponent
-import sun.jvm.hotspot.ui.tree.SimpleTreeGroupNode
-import java.beans.PropertyChangeEvent
+import sun.misc.Lock
 import java.beans.PropertyChangeListener
 import java.io.BufferedReader
 import java.io.File
 import java.io.StringReader
-import java.lang.Exception
-import java.lang.IllegalArgumentException
 import java.time.LocalDate
 import java.util.*
 
@@ -468,6 +464,27 @@ fun main(args: Array<String>) {
     val averageMobile = log.averageDurationFor { it.os in setOf(Os.ANDROID, Os.IOS) }
     val averageIos_sigup = log.averageDurationFor { it.os == Os.IOS && it.path.equals("/sigup", true) }
     println("Windows的平均访问时间：${averageWindows}\nMac的平均时间：${averageMac}\n移动平台的平均访问时间：${averageMobile}\nIOS登陆的平均时间：${averageIos_sigup}")
+
+    println()
+    val l = sun.misc.Lock()
+    foo1(l)
+}
+
+fun foo1(l: Lock) {
+    println("Before sync")
+    synchronized(l) {
+        println("Action")
+    }
+    println("After sync")
+}
+
+inline fun <T> synchronized(lock: Lock, action: () -> T): T {
+    lock.lock()
+    try {
+        return action()
+    } finally {
+        lock.unlock()
+    }
 }
 
 fun getShippingCostCalculator(delivery: Delivery): (Order) -> Double {
