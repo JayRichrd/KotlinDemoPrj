@@ -17,6 +17,7 @@ import sun.misc.Lock
 import java.beans.PropertyChangeListener
 import java.io.BufferedReader
 import java.io.File
+import java.io.FileReader
 import java.io.StringReader
 import java.time.LocalDate
 import java.util.*
@@ -468,6 +469,36 @@ fun main(args: Array<String>) {
     println()
     val l = sun.misc.Lock()
     foo1(l)
+
+    println()
+    find(dataPerson)
+}
+
+fun find(persons: List<DataPerson>) {
+//    for (person in persons) {
+//        if (person.name == "Alice") {
+//        }
+//        println("Found!")
+//        return
+//    }
+//    println("Not Found")
+
+//    persons.forEach {
+//        if (it.name == "Alice") {
+//            println("Found!")
+//            return@forEach
+//        }
+//    }
+//    println("Not Found")
+
+    persons.forEach(fun(person) {
+        if (person.name == "Alice") return
+        println("Not Found")
+    })
+}
+
+fun readFirstLineFromFile(path: String): String {
+    BufferedReader(FileReader(path)).use { br -> return br.readLine() }
 }
 
 fun foo1(l: Lock) {
