@@ -432,9 +432,6 @@ fun main(args: Array<String>) {
     twoAndThree { a, b -> a + b }
     twoAndThree { a, b -> a * b }
 
-    println()
-
-
 }
 
 fun processTheAnswer(f: (Int) -> Int) {
