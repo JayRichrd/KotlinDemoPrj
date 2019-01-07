@@ -4,19 +4,21 @@ import com.tencent.cain.*
 import com.tencent.cain.Number
 import com.tencent.cain.User
 import com.tencent.cain.data.NameComponents
+import com.tencent.cain.data.Order
+import com.tencent.cain.data.Os
+import com.tencent.cain.data.SiteVisit
 import com.tencent.cain.java.HandleComputation
+import com.tencent.cain.person.ContactPerson
 import com.tencent.cain.person.Employeer
 import com.tencent.cain.person.Person
 import com.tencent.cain.user.*
 import com.tencent.cain.util.*
-import org.omg.CosNaming.NameComponent
-import java.beans.PropertyChangeEvent
+import sun.misc.Lock
 import java.beans.PropertyChangeListener
 import java.io.BufferedReader
 import java.io.File
+import java.io.FileReader
 import java.io.StringReader
-import java.lang.Exception
-import java.lang.IllegalArgumentException
 import java.time.LocalDate
 import java.util.*
 
@@ -432,6 +434,100 @@ fun main(args: Array<String>) {
     twoAndThree { a, b -> a + b }
     twoAndThree { a, b -> a * b }
 
+    println()
+    val lettersStr = listOf("ABC", "DEF")
+    println(lettersStr.joinToString(separator = "!", postfix = "!", transform = { it.toLowerCase() }))
+    foo { println("callback!") }
+
+    println()
+    val calculator = getShippingCostCalculator(Delivery.EXPERDITED)
+    println("Shipping cost ${calculator(Order(3))}")
+
+    println()
+    val contacts = listOf(ContactPerson("Dmitry", "Jemerov", "123456"), ContactPerson("Jiang", "Yu", "234567"))
+    val contactListFilter = ContactListFilter().apply {
+        prefix = "Dm"
+        onlyWithPhoneNumber = true
+    }
+    println("符合条件的结果是：${contacts.filter(contactListFilter.getPredicate())}")
+
+    println()
+    val log = listOf(SiteVisit("/", 34.0, Os.WINDOWS),
+            SiteVisit("/", 22.0, Os.MAC),
+            SiteVisit("/login", 12.0, Os.WINDOWS),
+            SiteVisit("/siguP", 8.0, Os.IOS),
+            SiteVisit("/", 16.3, Os.ANDROID))
+//    val averageWindows = log.filter { it.os == Os.WINDOWS }.map(SiteVisit::duration).average()
+//    val averageWindows = log.averageDurationFor(Os.WINDOWS)
+    val averageWindows = log.averageDurationFor { it.os == Os.WINDOWS }
+//    val averageMac = log.averageDurationFor(Os.MAC)
+    val averageMac = log.averageDurationFor { it.os == Os.MAC }
+    val averageMobile = log.averageDurationFor { it.os in setOf(Os.ANDROID, Os.IOS) }
+    val averageIos_sigup = log.averageDurationFor { it.os == Os.IOS && it.path.equals("/sigup", true) }
+    println("Windows的平均访问时间：${averageWindows}\nMac的平均时间：${averageMac}\n移动平台的平均访问时间：${averageMobile}\nIOS登陆的平均时间：${averageIos_sigup}")
+
+    println()
+    val l = sun.misc.Lock()
+    foo1(l)
+
+    println()
+    find(dataPerson)
+}
+
+fun find(persons: List<DataPerson>) {
+//    for (person in persons) {
+//        if (person.name == "Alice") {
+//        }
+//        println("Found!")
+//        return
+//    }
+//    println("Not Found")
+
+//    persons.forEach {
+//        if (it.name == "Alice") {
+//            println("Found!")
+//            return@forEach
+//        }
+//    }
+//    println("Not Found")
+
+    persons.forEach(fun(person) {
+        if (person.name == "Alice") return
+        println("Not Found")
+    })
+}
+
+fun readFirstLineFromFile(path: String): String {
+    BufferedReader(FileReader(path)).use { br -> return br.readLine() }
+}
+
+fun foo1(l: Lock) {
+    println("Before sync")
+    synchronized(l) {
+        println("Action")
+    }
+    println("After sync")
+}
+
+inline fun <T> synchronized(lock: Lock, action: () -> T): T {
+    lock.lock()
+    try {
+        return action()
+    } finally {
+        lock.unlock()
+    }
+}
+
+fun getShippingCostCalculator(delivery: Delivery): (Order) -> Double {
+    if (delivery == Delivery.EXPERDITED) {
+        return { order -> 6 + 2.1 * order.itemCount }
+    } else {
+        return { order -> 1.2 * order.itemCount }
+    }
+}
+
+fun foo(callback: (() -> Unit)?) {
+    callback?.invoke()
 }
 
 fun processTheAnswer(f: (Int) -> Int) {
@@ -587,5 +683,7 @@ fun saveUser(user: User) {
 fun <T> loadFromJson(factory: IJsonFactory<T>): T {
     return factory.fromJson("jiangyu")
 }
+
+enum class Delivery { STANDARD, EXPERDITED }
 
 

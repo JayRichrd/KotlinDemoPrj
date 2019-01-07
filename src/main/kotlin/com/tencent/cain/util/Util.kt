@@ -5,6 +5,8 @@ package com.tencent.cain.util
 import com.tencent.cain.Child
 import com.tencent.cain.Parent
 import com.tencent.cain.Point
+import com.tencent.cain.data.Os
+import com.tencent.cain.data.SiteVisit
 import com.tencent.cain.user.ObjectPerson
 import java.time.LocalDate
 
@@ -64,11 +66,11 @@ fun String.transForm() {
 /**
  * 查询字符串中，包含某个字符的个数
  */
-fun String.getSpecialStrCount(specialStr:String)= this.count {
+fun String.getSpecialStrCount(specialStr: String) = this.count {
     it.toString().equals(specialStr)
 }
 
-fun transFormation(source:String){
+fun transFormation(source: String) {
     println("替换后的结果：$source")
     source.replaceFirst("某某", "姜瑜")
     println("替换前的结果：$source")
@@ -98,4 +100,8 @@ operator fun ClosedRange<LocalDate>.iterator(): Iterator<LocalDate> =
             }
 
         }
+
+//fun List<SiteVisit>.averageDurationFor(os: Os) = filter { it.os == os }.map(SiteVisit::duration).average()
+fun List<SiteVisit>.averageDurationFor(predicate:(SiteVisit) -> Boolean) =
+        filter(predicate).map(SiteVisit::duration).average()
 
