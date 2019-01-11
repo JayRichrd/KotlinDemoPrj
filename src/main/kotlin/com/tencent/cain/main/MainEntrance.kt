@@ -472,6 +472,21 @@ fun main(args: Array<String>) {
 
     println()
     find(dataPerson)
+
+    println()
+    println(oneHalf(3))
+
+    println()
+    println(max("kotlin", "java"))
+
+}
+
+fun <T : kotlin.Number> oneHalf(value: T): Double {
+    return value.toDouble() / 2
+}
+
+fun <T : Comparable<T>> max(first: T, second: T): T {
+    return if (first > second) first else second
 }
 
 fun find(persons: List<DataPerson>) {
