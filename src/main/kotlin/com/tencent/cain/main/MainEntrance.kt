@@ -479,6 +479,9 @@ fun main(args: Array<String>) {
     println()
     println(max("kotlin", "java"))
 
+    println()
+    processor("jiangyu")
+
 }
 
 fun <T : kotlin.Number> oneHalf(value: T): Double {
@@ -697,6 +700,11 @@ fun saveUser(user: User) {
 
 fun <T> loadFromJson(factory: IJsonFactory<T>): T {
     return factory.fromJson("jiangyu")
+}
+
+
+fun <T : Any> processor(t: T) {
+    println("paramter hashcode: ${t.hashCode()}")
 }
 
 enum class Delivery { STANDARD, EXPERDITED }
