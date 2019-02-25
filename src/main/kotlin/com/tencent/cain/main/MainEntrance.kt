@@ -482,6 +482,11 @@ fun main(args: Array<String>) {
     println()
     processor("jiangyu")
 
+    println()
+    printSum(listOf(1, 2, 3))
+//    printSum(setOf(1, 2, 3))
+//    printSum(listOf("a", "b", "c"))
+
 }
 
 fun <T : kotlin.Number> oneHalf(value: T): Double {
@@ -705,6 +710,14 @@ fun <T> loadFromJson(factory: IJsonFactory<T>): T {
 
 fun <T : Any> processor(t: T) {
     println("paramter hashcode: ${t.hashCode()}")
+}
+
+fun printSum(c: Collection<Int>) {
+    if (c is List<Int>) {
+        println(c.sum())
+    }
+//    val intList = c as? List<Int> ?: throw java.lang.IllegalArgumentException("List is expected!")
+//    println(intList.sum())
 }
 
 enum class Delivery { STANDARD, EXPERDITED }
