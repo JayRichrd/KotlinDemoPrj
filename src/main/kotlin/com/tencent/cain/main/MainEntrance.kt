@@ -1,5 +1,6 @@
 package com.tencent.cain.main
 
+import com.sun.tools.javac.util.ServiceLoader
 import com.tencent.cain.*
 import com.tencent.cain.Number
 import com.tencent.cain.User
@@ -487,6 +488,24 @@ fun main(args: Array<String>) {
 //    printSum(setOf(1, 2, 3))
 //    printSum(listOf("a", "b", "c"))
 
+    println()
+    println(isA<String>("abc"))
+    println(isA<String>(123))
+
+    println()
+    val items = listOf("one", 2, "three")
+    println(items.filterIsInstance<String>())
+
+    println()
+    loadService<String>()
+
+    println()
+    Validators.registerValidator(String::class,DefaultStringValidator)
+    Validators.registerValidator(Int::class,DefaultIntValidator)
+    println(Validators[String::class].validate("Kotlin"))
+    println(Validators[Int::class].validate(42))
+
+
 }
 
 fun <T : kotlin.Number> oneHalf(value: T): Double {
@@ -720,6 +739,11 @@ fun printSum(c: Collection<Int>) {
 //    println(intList.sum())
 }
 
+inline fun <reified T> loadService() = ServiceLoader.load(T::class.java)
+
+inline fun <reified T> isA(value: Any) = value is T
+
 enum class Delivery { STANDARD, EXPERDITED }
+
 
 
