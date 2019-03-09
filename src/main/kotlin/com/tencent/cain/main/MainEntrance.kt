@@ -23,6 +23,8 @@ import java.io.StringReader
 import java.time.LocalDate
 import java.util.*
 
+var strvar = "hahah"
+
 fun main(args: Array<String>) {
     val txt = """
         |天上白玉京，
@@ -42,6 +44,9 @@ fun main(args: Array<String>) {
     var str2 = "crazyit.org"
     println("返回两个字符串相同的前缀：${str2.commonPrefixWith("crazyjava.org")}")
     println("返回两个字符串相同的后缀：${str2.commonSuffixWith("fkit.org")}")
+    val kProperty = ::strvar
+    kProperty.setter.call("重新设置属性")
+    println(kProperty.get())
 
     val books = arrayOf("Swift", "Kotlin", "C", "C++")
     for (index in 0 until books.size) {
@@ -93,7 +98,13 @@ fun main(args: Array<String>) {
     var person = Person()
     person.name = "姜瑜"
     person.age = 28
+    val kClass = person.javaClass.kotlin
+    println("person className: ${kClass.simpleName}")
+    kClass.members.forEach { println(it.name) }
+    val memberProperty = Person::age
+    println("Person age = ${memberProperty.get(person)}")
     println("person name : ${person.name} ,age : ${person.age}")
+
 
     println(getMnemonic(Color.BLUE))
     val color = Color.BLUE
@@ -500,13 +511,17 @@ fun main(args: Array<String>) {
     loadService<String>()
 
     println()
-    Validators.registerValidator(String::class,DefaultStringValidator)
-    Validators.registerValidator(Int::class,DefaultIntValidator)
+    Validators.registerValidator(String::class, DefaultStringValidator)
+    Validators.registerValidator(Int::class, DefaultIntValidator)
     println(Validators[String::class].validate("Kotlin"))
     println(Validators[Int::class].validate(42))
 
-
+    println()
+    val kFunction = ::foo2
+    println(kFunction.invoke(1, 2) + kFunction.invoke(3, 4))
 }
+
+fun foo2(x: Int, y: Int) = x + y
 
 fun <T : kotlin.Number> oneHalf(value: T): Double {
     return value.toDouble() / 2
@@ -744,6 +759,5 @@ inline fun <reified T> loadService() = ServiceLoader.load(T::class.java)
 inline fun <reified T> isA(value: Any) = value is T
 
 enum class Delivery { STANDARD, EXPERDITED }
-
 
 
