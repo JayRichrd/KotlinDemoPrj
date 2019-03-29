@@ -8,6 +8,7 @@ import com.tencent.cain.data.NameComponents
 import com.tencent.cain.data.Order
 import com.tencent.cain.data.Os
 import com.tencent.cain.data.SiteVisit
+import com.tencent.cain.java.CommentItem
 import com.tencent.cain.java.HandleComputation
 import com.tencent.cain.person.ContactPerson
 import com.tencent.cain.person.Employeer
@@ -519,6 +520,13 @@ fun main(args: Array<String>) {
     println()
     val kFunction = ::foo2
     println(kFunction.invoke(1, 2) + kFunction.invoke(3, 4))
+
+    val comments = mutableListOf<CommentItem>()
+    comments.add(CommentItem("123", 123443L, "啊哈哈", 1, false, false))
+    comments.add(CommentItem("123", 123443L, "啊哈哈", 1, false, false))
+    comments.add(CommentItem("456", 123443L, "啊哈哈", 1, false, false))
+    println(comments)
+    println(deduplicateComments(comments))
 }
 
 fun foo2(x: Int, y: Int) = x + y

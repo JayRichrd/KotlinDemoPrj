@@ -7,6 +7,7 @@ import com.tencent.cain.Parent
 import com.tencent.cain.Point
 import com.tencent.cain.data.Os
 import com.tencent.cain.data.SiteVisit
+import com.tencent.cain.java.CommentItem
 import com.tencent.cain.user.ObjectPerson
 import java.time.LocalDate
 
@@ -104,4 +105,17 @@ operator fun ClosedRange<LocalDate>.iterator(): Iterator<LocalDate> =
 //fun List<SiteVisit>.averageDurationFor(os: Os) = filter { it.os == os }.map(SiteVisit::duration).average()
 fun List<SiteVisit>.averageDurationFor(predicate:(SiteVisit) -> Boolean) =
         filter(predicate).map(SiteVisit::duration).average()
+
+/**
+ * 评论去重,根据评论CommentItem中的commentId来判断是否重复
+ * @param comments 待去重的屏幕列表
+ *
+ */
+fun deduplicateComments(comments: MutableList<CommentItem>): List<CommentItem> {
+    val tempCommentsSet: MutableSet<CommentItem> = mutableSetOf()
+    comments.forEach {
+        tempCommentsSet.add(it)
+    }
+    return tempCommentsSet.distinct()
+}
 
