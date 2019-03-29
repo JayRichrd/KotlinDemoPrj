@@ -521,12 +521,39 @@ fun main(args: Array<String>) {
     val kFunction = ::foo2
     println(kFunction.invoke(1, 2) + kFunction.invoke(3, 4))
 
+    println()
+    val stringBuilder = buildString {
+        append("Hello ")
+        append("World!")
+    }
+    println(stringBuilder)
+
+    println()
+    val bavarianGreeter = Greeter("Servus")
+    bavarianGreeter("Dmitry!")
+
+    println()
+    val i1 = Issue("154446", "idea", "bug", "major", "save settings failed")
+    val i2 = Issue("154", "kotlin", "bug", "major", "save settings failed")
+    val predicate = ImportantIssuesPredicate("idea")
+    for (issue in listOf(i1, i2).filter(predicate)) {
+        println(issue.id)
+    }
+
     val comments = mutableListOf<CommentItem>()
     comments.add(CommentItem("123", 123443L, "啊哈哈", 1, false, false))
     comments.add(CommentItem("123", 123443L, "啊哈哈", 1, false, false))
     comments.add(CommentItem("456", 123443L, "啊哈哈", 1, false, false))
     println(comments)
     println(deduplicateComments(comments))
+
+}
+
+fun buildString(buildAction: StringBuilder.() -> Unit): String {
+    val stringBuilder = StringBuilder()
+    stringBuilder.buildAction()
+    return stringBuilder.toString()
+
 }
 
 fun foo2(x: Int, y: Int) = x + y
