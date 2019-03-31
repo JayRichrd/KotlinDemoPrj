@@ -15,12 +15,17 @@ import com.tencent.cain.person.Employeer
 import com.tencent.cain.person.Person
 import com.tencent.cain.user.*
 import com.tencent.cain.util.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import sun.misc.Lock
 import java.beans.PropertyChangeListener
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
 import java.io.StringReader
+import java.lang.Math.random
+import java.lang.Thread.sleep
 import java.time.LocalDate
 import java.util.*
 
@@ -547,6 +552,25 @@ fun main(args: Array<String>) {
     println(comments)
     println(deduplicateComments(comments))
 
+    println("协程演示：")
+    val job = GlobalScope.launch {
+        //启动一个协程
+        for (i in 0..9) {
+            // 打印协程执行次数
+            println("子协程执行第${i}次")
+            // 随机生成挂起时间
+            val sleepTime = (10 * random()).toLong()
+            // 协程挂起
+            delay(sleepTime)
+        }
+        println("子协程执行结束。")
+    }
+
+    println(job.isActive)
+    println(job.isCompleted)
+    sleep(100L)
+    println("主线程结束")
+    println(job.isCompleted)
 }
 
 fun buildString(buildAction: StringBuilder.() -> Unit): String {
